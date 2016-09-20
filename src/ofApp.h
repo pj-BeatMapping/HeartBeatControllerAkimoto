@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxProcessFFT.h"
 #include "ofxGui.h"
+#include "BeatGenerator.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,6 +24,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        //擬似心拍
+    int intermittentChaous(int x);
+
+    
     //For Arduino
     ofSerial serial; //シリアル通信受信用のインスタンス
      //ofSerialのメソッドからArduinoのシリアルを受信してる。
@@ -35,5 +40,11 @@ class ofApp : public ofBaseApp{
     ProcessFFT fft;         // FFT分析->Circleビジュアライズ用
     ofxPanel gui;           // GUI
     ofxFloatSlider level;   // 入力レベル調整
+    
+    //擬似心拍用変数
+    float BPM = 80;
+    float margin = 0.2;
+    int flct = 0.3;
+    BeatGenerator bg;
     
 };

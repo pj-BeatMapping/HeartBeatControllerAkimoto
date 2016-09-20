@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetCircleResolution(50);
@@ -15,6 +17,9 @@ void ofApp::setup(){
     gui.loadFromFile("settings.xml");
     //Arduino
     serial.setup("/dev/cu.usbmodem1421",9600);//Arduinoのポートを指定。
+    
+    //擬似心拍クラス
+    bg = *new BeatGenerator(BPM/60.0*1000 + (0.5 - flct)*BPM*margin/60*1000, flct);
 
 }
 
@@ -23,17 +28,25 @@ void ofApp::update(){
     ofBackground(0);
     fft.update();
     //FFTデバッグ
-    cout<<"低周波数帯:"<<fft.getLowVal()<<endl;
+    //cout<<"低周波数帯:"<<fft.getLowVal()<<endl;
     
-    cout<<"中周波数帯:"<<fft.getMidVal()<<endl;
+    //cout<<"中周波数帯:"<<fft.getMidVal()<<endl;
     
-    cout<<"高周波数帯:"<<fft.getHighVal()<<endl;
+    //cout<<"高周波数帯:"<<fft.getHighVal()<<endl;
     
-    cout<<"====================="<<endl;
+    //cout<<"====================="<<endl;
     
     //シリアル通信(受信)
     send_data =0;
     send_data = serial.readByte();//Arduinoでwriteされたデータを取得
+    
+    
+    //擬似心拍の取得
+    int mili = ofGetElapsedTimeMillis();//起動してからの時間を取得
+    if(bg.autoBeat(mili,BPM,margin)){
+        //ここに心拍が拍動した時の処理を書く
+    }
+
 
 
 }
