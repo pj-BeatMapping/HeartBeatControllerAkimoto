@@ -53,6 +53,7 @@ void ofApp::update(){
             beat_detect[i+1] = 1;
         } else beat_detect[i+1] = 0;
 
+    //擬似心拍のデバッグ用
     for(int i=0; i<bgSize; i++)
         printf("%d",beat_detect[i+1]);
     printf("\n");
