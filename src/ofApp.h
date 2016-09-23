@@ -45,7 +45,7 @@ class ofApp : public ofBaseApp{
     float BPM = 80;
     float margin = 0.2;
     int flct = 0.3;
-    BeatGenerator bg;
+    vector<BeatGenerator> bg;
     
     //最終的に心拍情報を送信する変数(配列)
     int beat_detect[7];

@@ -2,6 +2,7 @@
 
 int mili;
 int premili = 0;
+const int bgSize = 6;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -20,8 +21,10 @@ void ofApp::setup(){
     serial.setup("/dev/cu.usbmodem1421",9600);//Arduinoのポートを指定。
     
     //擬似心拍クラス
-    bg = *new BeatGenerator(BPM/60.0*1000 + (0.5 - flct)*BPM*margin/60*1000, flct);
-
+    for(int i=0; i<bgSize; i++){
+        bg.push_back(*new BeatGenerator(BPM/60.0*1000 + (0.5 - flct)*BPM*margin/60*1000, flct));
+        BPM += 4;
+    }
 }
 
 //--------------------------------------------------------------
@@ -44,13 +47,15 @@ void ofApp::update(){
     
     //擬似心拍の取得
     mili = ofGetElapsedTimeMillis();//起動してからの時間を取得
-    if(bg.autoBeat(mili,BPM,margin)){
-        //ここに心拍が拍動した時の処理を書く
-        send_data = 1; //自動心拍をsend_dataに入力　後で消してください
-    }
+    for(int i=0; i<bgSize; i++)
+        if(bg[i].autoBeat(mili,BPM,margin)){
+            //ここに心拍が拍動した時の処理を書く
+            beat_detect[i+1] = 1;
+        } else beat_detect[i+1] = 0;
 
-
-
+    for(int i=0; i<bgSize; i++)
+        printf("%d",beat_detect[i+1]);
+    printf("\n");
 }
 
 //--------------------------------------------------------------
