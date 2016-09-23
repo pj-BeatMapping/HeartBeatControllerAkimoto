@@ -30,7 +30,9 @@ void BeatGenerator::intermittentChaos(){ //間欠カオス
 bool BeatGenerator::autoBeat(int mili, float BPM, float margin){
     if(nextTime<mili){
         
-        int f_over_one = (0.5 - flct)*BPM*margin/60*1000;
+        //printf("nextTime = %f, BPM = %f\n",nextTime/1000.0, (1+margin*(0.5-flct))*BPM);
+        
+        int f_over_one = (int)((0.5 - flct)*BPM*margin/60.0*1000.0);
         nextTime += BPM/60.0*1000 + f_over_one;
         intermittentChaos();
         
@@ -38,7 +40,6 @@ bool BeatGenerator::autoBeat(int mili, float BPM, float margin){
         //play();
         
         
-        printf("BPM = %f, %f\n",(1+margin*(flct-0.5))*BPM,flct);
         return true;
     } else return false;
 }
