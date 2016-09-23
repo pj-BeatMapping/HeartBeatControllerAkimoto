@@ -67,10 +67,19 @@ void ofApp::draw(){
         counter = false; //表示を一回のみに限定
         ofBackground(255);//ビート検出時のみ画面を白に(フラッシュ)
         
+        //--------ON----------
+        beat_detect[0] = 1;
+        cout << "Arduino = " << beat_detect[0] << endl;
+        //--------ON----------
+        
         //BPMの検出
         float nowBPM = (float)(mili-premili)/1000.0*60.0;
         //printf("nowTime = %f, preTime = %f, BPM = %f\n", mili/1000.0, premili/1000.0, nowBPM); //ここでBPMを検出できる
         premili = mili;
+    }else{
+        //--------OFF---------
+         beat_detect[0] = 0;
+        //--------OFF---------
         
     }
     //画面のメッセージ
