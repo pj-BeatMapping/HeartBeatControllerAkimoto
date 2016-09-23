@@ -47,4 +47,8 @@ class ofApp : public ofBaseApp{
     int flct = 0.3;
     BeatGenerator bg;
     
+    //最終的に心拍情報を送信する変数(配列)
+    int beat_detect[7];
+    //beat_detect[0]にArduinoの心拍を入れます。
+    
 };
