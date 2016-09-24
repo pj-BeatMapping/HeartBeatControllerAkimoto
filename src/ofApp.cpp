@@ -58,9 +58,9 @@ void ofApp::update(){
         } else beat_detect[i+1] = 0;
 
     //擬似心拍のデバッグ用
-    for(int i=0; i<bgSize; i++)
-        printf("%d",beat_detect[i+1]);
-    printf("\n");
+//    for(int i=0; i<bgSize; i++)
+//        printf("%d",beat_detect[i+1]);
+//    printf("\n");
 }
 
 //--------------------------------------------------------------
@@ -114,6 +114,8 @@ void ofApp::draw(){
     ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, lowValue);
     ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, midValue);
     ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, highValue);
+    
+    cout << lowValue << endl;
     
     
     // GUI

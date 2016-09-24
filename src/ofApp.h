@@ -6,7 +6,7 @@
 #include "BeatGenerator.h"
 #include "ofxOsc.h"
 
-//#define HOST "" 受信側のIPアドレス
+#define HOST "133.51.63.30" 
 #define PORT 8000
 
 class ofApp : public ofBaseApp{
