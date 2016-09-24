@@ -25,6 +25,10 @@ void ofApp::setup(){
         bg.push_back(*new BeatGenerator(BPM/60.0*1000 + (0.5 - flct)*BPM*margin/60*1000, flct));
         BPM += 4;
     }
+    
+    //OSC
+    sender.setup(HOST,PORT);
+    
 }
 
 //--------------------------------------------------------------
@@ -79,7 +83,9 @@ void ofApp::draw(){
         //--------ON----------
         
         //BPMの検出
-        float nowBPM = (float)(mili-premili)/1000.0*60.0;
+        float nowBPM =
+        
+        (float)(mili-premili)/1000.0*60.0;
         //printf("nowTime = %f, preTime = %f, BPM = %f\n", mili/1000.0, premili/1000.0, nowBPM); //ここでBPMを検出できる
         premili = mili;
     }else{
@@ -112,6 +118,25 @@ void ofApp::draw(){
     
     // GUI
     gui.draw();
+    
+    //OSC
+    //心拍のデータ
+    ofxOscMessage OscBeat;
+    OscBeat.setAddress( "/Beat" );
+    for(int i = 0;i<7;i++){
+        OscBeat.addIntArg(beat_detect[i]);
+    }
+    sender.sendMessage(OscBeat);
+    
+    //音響解析データ
+    ofxOscMessage OscFFT;
+    OscFFT.setAddress( "/Fft" );
+    OscFFT.addFloatArg(lowValue);
+    OscFFT.addFloatArg(midValue);
+    OscFFT.addFloatArg(highValue);
+    sender.sendMessage(OscFFT);
+    
+    
     
     
 

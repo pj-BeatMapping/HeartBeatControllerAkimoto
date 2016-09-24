@@ -4,6 +4,10 @@
 #include "ofxProcessFFT.h"
 #include "ofxGui.h"
 #include "BeatGenerator.h"
+#include "ofxOsc.h"
+
+//#define HOST "" 受信側のIPアドレス
+#define PORT 8000
 
 class ofApp : public ofBaseApp{
 
@@ -49,6 +53,8 @@ class ofApp : public ofBaseApp{
     
     //最終的に心拍情報を送信する変数(配列)
     int beat_detect[7];
-    //beat_detect[0]にArduinoの心拍を入れます。
+    
+    ofxOscSender sender;
+    
     
 };
