@@ -5,6 +5,7 @@
 #include "ofxGui.h"
 #include "BeatGenerator.h"
 #include "ofxOsc.h"
+#include "BeatSound.h"
 
 #define HOST "133.51.63.30" 
 #define PORT 8000
@@ -15,21 +16,6 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-    
-        //擬似心拍
-    int intermittentChaous(int x);
 
     
     //For Arduino
@@ -56,5 +42,6 @@ class ofApp : public ofBaseApp{
     
     ofxOscSender sender;
     
+    BeatSound bs1, bs2, bs3, bs4, bs5;
     
 };

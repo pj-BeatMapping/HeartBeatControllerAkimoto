@@ -29,6 +29,8 @@ void ofApp::setup(){
     //OSC
     sender.setup(HOST,PORT);
     
+    bs1 = *new BeatSound("rad1.mp3","rad2.mp3","rad3.mp3");
+    
 }
 
 //--------------------------------------------------------------
@@ -55,6 +57,9 @@ void ofApp::update(){
         if(bg[i].autoBeat(mili,BPM,margin)){
             //ここに心拍が拍動した時の処理を書く
             beat_detect[i+1] = 1;
+            if(i == 0) {
+                bs1.playSound(ofRandom(0,3));
+            }
         } else beat_detect[i+1] = 0;
 
     //擬似心拍のデバッグ用
@@ -139,66 +144,4 @@ void ofApp::draw(){
     sender.sendMessage(OscFFT);
     
     
-    
-    
-
-
-    
-    
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
 }
