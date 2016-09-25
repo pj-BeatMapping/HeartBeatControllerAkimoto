@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
 
     
     //For Arduino
@@ -43,5 +44,7 @@ class ofApp : public ofBaseApp{
     ofxOscSender sender;
     
     BeatSound bs1, bs2, bs3, bs4, bs5;
+    
+    ofSoundPlayer beat;
     
 };

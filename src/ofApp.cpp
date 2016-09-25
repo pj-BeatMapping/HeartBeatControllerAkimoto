@@ -9,6 +9,7 @@ void ofApp::setup(){
     ofSetCircleResolution(50);
     ofSetVerticalSync(true);
     ofSetFrameRate(60);
+    beat.loadSound("BEAT.mp3");
     // FFT初期設定
     fft.setup();
     fft.setNumFFTBins(16);
@@ -80,6 +81,14 @@ void ofApp::update(){
 //    for(int i=0; i<bgSize; i++)
 //        printf("%d",beat_detect[i+1]);
 //    printf("\n");
+    
+    //鼓動音の再生
+    for(int i = 0 ; i < 7 ; i++){
+        if(beat_detect[i] == 1 ){
+            beat.play();
+            beat.setVolume(0.5f);
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -152,4 +161,8 @@ void ofApp::draw(){
     OscFFT.addFloatArg(highValue);
     sender.sendMessage(OscFFT);
     
+}
+//--------------------------------------------------------------
+void ofApp::exit(){
+    beat.stop();
 }
