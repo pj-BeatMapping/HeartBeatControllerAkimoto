@@ -13,7 +13,7 @@ public:
     BeatSound(string name1, string name2, string name3, string name4, string name5);
     BeatSound();
     void playSound(int i);
-    
+    void stop();
     ofSoundPlayer player1[2];
     ofSoundPlayer player2[2];
     ofSoundPlayer player3[2];

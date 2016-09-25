@@ -51,3 +51,16 @@ void BeatSound::playSound(int i){
     cnt[i]++;
 
 }
+
+void BeatSound::stop(){
+    player1[0].stop();
+    player1[1].stop();
+    player2[0].stop();
+    player2[1].stop();
+    player3[0].stop();
+    player3[1].stop();
+    player4[0].stop();
+    player4[1].stop();
+    player5[0].stop();
+    player5[1].stop();
+}

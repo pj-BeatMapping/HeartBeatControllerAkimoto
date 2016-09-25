@@ -165,4 +165,8 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::exit(){
     beat.stop();
+    bs1.stop();
+    bs2.stop();
+    bs3.stop();
+    bs4.stop();
 }
