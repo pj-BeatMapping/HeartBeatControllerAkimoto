@@ -2,7 +2,7 @@
 
 int mili;
 int premili = 0;
-const int bgSize = 6;
+const int bgSize = 4;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -22,14 +22,17 @@ void ofApp::setup(){
     
     //擬似心拍クラス
     for(int i=0; i<bgSize; i++){
-        bg.push_back(*new BeatGenerator(BPM/60.0*1000 + (0.5 - flct)*BPM*margin/60*1000, flct));
-        BPM += 4;
-    }
+        bg.push_back(*new BeatGenerator(60.0/(BPM[i]+(0.5 - flct)*BPM[i]*margin)*1000, flct));
+        //BPM += 4;
+   }
     
     //OSC
     sender.setup(HOST,PORT);
     
-    bs1 = *new BeatSound("rad1.mp3","rad2.mp3","rad3.mp3");
+    bs1 = *new BeatSound("rad1.mp3","rad2.mp3","rad3.mp3","rad1.mp3","rad2.mp3");
+    bs2 = *new BeatSound("piano1.mp3","piano2.mp3","piano3.mp3","piano4.mp3","piano5.mp3");
+    bs3 = *new BeatSound("ws1.mp3","ws2.mp3","ws3.mp3","ws4.mp3","ws1.mp3");
+    bs4 = *new BeatSound("sc1.mp3","sc2.mp3","sc3.mp3","sc4.mp3","sc5.mp3");
     
 }
 
@@ -48,18 +51,29 @@ void ofApp::update(){
     
     //シリアル通信(受信)
     send_data = -2;
-    send_data = serial.readByte();//Arduinoでwriteされたデータを取得
+    //send_data = serial.readByte();//Arduinoでwriteされたデータを取得
     
     
     //擬似心拍の取得
     mili = ofGetElapsedTimeMillis();//起動してからの時間を取得
     for(int i=0; i<bgSize; i++)
-        if(bg[i].autoBeat(mili,BPM,margin)){
+        if(bg[i].autoBeat(mili,BPM[i],margin)){
             //ここに心拍が拍動した時の処理を書く
             beat_detect[i+1] = 1;
             if(i == 0) {
-                bs1.playSound(ofRandom(0,3));
+                //bs1.playSound(ofRandom(0,5));
             }
+            if(i == 1) {
+                bs2.playSound(ofRandom(0,5));
+            }
+            if(i == 2) {
+                bs3.playSound(ofRandom(0,5));
+            }
+            if(i == 3) {
+                bs4.playSound(ofRandom(0,5));
+                printf("now %d\n",mili);
+            }
+            
         } else beat_detect[i+1] = 0;
 
     //擬似心拍のデバッグ用
@@ -84,7 +98,7 @@ void ofApp::draw(){
         
         //--------ON----------
         beat_detect[0] = 1;
-        cout << "Arduino = " << beat_detect[0] << endl;
+        //cout << "Arduino = " << beat_detect[0] << endl;
         //--------ON----------
         
         //BPMの検出
@@ -104,10 +118,6 @@ void ofApp::draw(){
     string msg = "Beat :" + ofToString( number );
     ofDrawBitmapString( msg, ofGetWidth()/2, ofGetHeight()/2);
     
-    
-
-    
-    
     //FFT
     // 低域、中域、高域の値を取得
     float lowValue = ofMap(fft.getLowVal(), 0, 1, 0, level);
@@ -121,7 +131,6 @@ void ofApp::draw(){
     ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, highValue);
     
     cout << lowValue << endl;
-    
     
     // GUI
     gui.draw();
@@ -142,6 +151,5 @@ void ofApp::draw(){
     OscFFT.addFloatArg(midValue);
     OscFFT.addFloatArg(highValue);
     sender.sendMessage(OscFFT);
-    
     
 }

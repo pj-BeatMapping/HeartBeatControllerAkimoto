@@ -10,15 +10,21 @@
 
 BeatSound::BeatSound(){};
 
-BeatSound::BeatSound(string name1, string name2, string name3){
+
+
+BeatSound::BeatSound(string name1, string name2, string name3, string name4, string name5){
     player1[0].load(name1);
     player1[1].load(name1);
     player2[0].load(name2);
     player2[1].load(name2);
     player3[0].load(name3);
     player3[1].load(name3);
+    player4[0].load(name4);
+    player4[1].load(name4);
+    player5[0].load(name5);
+    player5[1].load(name5);
     
-    for(int i=0; i<3; i++){
+    for(int i=0; i<5; i++){
         cnt[i] = 0;
     }
 }
@@ -36,6 +42,12 @@ void BeatSound::playSound(int i){
         player3[cnt[i]%2].play();
     }
     
+    if(i == 3){
+        player4[cnt[i]%2].play();
+    }
+    if(i == 4){
+        player5[cnt[i]%2].play();
+    }
     cnt[i]++;
 
 }

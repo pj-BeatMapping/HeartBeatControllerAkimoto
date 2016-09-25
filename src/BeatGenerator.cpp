@@ -32,13 +32,13 @@ bool BeatGenerator::autoBeat(int mili, float BPM, float margin){
         
         //printf("nextTime = %f, BPM = %f\n",nextTime/1000.0, (1+margin*(0.5-flct))*BPM);
         
-        int f_over_one = (int)((0.5 - flct)*BPM*margin/60.0*1000.0);
-        nextTime += BPM/60.0*1000 + f_over_one;
+        int f_over_one = BPM+(0.5 - flct)*BPM*margin;
+        
+        nextTime += 60.0/(float)f_over_one*1000;
+        
+        //printf("now f %d, %f, %d, %d\n", f_over_one, BPM, mili, nextTime);
+        
         intermittentChaos();
-        
-        //ここに自動心拍が拍動した時の処理を書く
-        //play();
-        
         
         return true;
     } else return false;

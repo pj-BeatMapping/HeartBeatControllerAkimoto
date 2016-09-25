@@ -32,7 +32,7 @@ class ofApp : public ofBaseApp{
     ofxFloatSlider level;   // 入力レベル調整
     
     //擬似心拍用変数
-    float BPM = 80;
+    float BPM[4]{40,80,20,30};
     float margin = 0.2;
     int flct = 0.3;
     vector<BeatGenerator> bg;
