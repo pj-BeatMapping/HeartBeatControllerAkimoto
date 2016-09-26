@@ -7,7 +7,7 @@
 #include "ofxOsc.h"
 #include "BeatSound.h"
 
-#define HOST "133.51.63.30" 
+#define HOST "133.51.126.190" 
 #define PORT 8000
 
 class ofApp : public ofBaseApp{
@@ -17,9 +17,11 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
         void exit();
+    
+        void keyPressed(int key);
 
     
-    //For Arduino
+    //For Arduinozz
     ofSerial serial; //シリアル通信受信用のインスタンス
      //ofSerialのメソッドからArduinoのシリアルを受信してる。
      //->複数受信したい場合はこのArduinoごとにインスタンスを用意してやればいいと思われる。

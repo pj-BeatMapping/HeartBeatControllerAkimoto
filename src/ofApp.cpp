@@ -2,7 +2,7 @@
 
 int mili;
 int premili = 0;
-const int bgSize = 4;
+int bgSize = 4;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -30,11 +30,11 @@ void ofApp::setup(){
     //OSC
     sender.setup(HOST,PORT);
     
-    bs1 = *new BeatSound("rad1.mp3","rad2.mp3","rad3.mp3","rad1.mp3","rad2.mp3");
+    bs1 = *new BeatSound("ws1.mp3","ws2.mp3","ws3.mp3","ws4.mp3","ws1.mp3");
     bs2 = *new BeatSound("piano1.mp3","piano2.mp3","piano3.mp3","piano4.mp3","piano5.mp3");
-    bs3 = *new BeatSound("ws1.mp3","ws2.mp3","ws3.mp3","ws4.mp3","ws1.mp3");
+    bs3 = *new BeatSound("rad1.mp3","rad2.mp3","rad3.mp3","rad1.mp3","rad2.mp3");
     bs4 = *new BeatSound("sc1.mp3","sc2.mp3","sc3.mp3","sc4.mp3","sc5.mp3");
-    
+   
 }
 
 //--------------------------------------------------------------
@@ -52,7 +52,7 @@ void ofApp::update(){
     
     //シリアル通信(受信)
     send_data = -2;
-    //send_data = serial.readByte();//Arduinoでwriteされたデータを取得
+    send_data = serial.readByte();//Arduinoでwriteされたデータを取得
     
     
     //擬似心拍の取得
@@ -62,7 +62,7 @@ void ofApp::update(){
             //ここに心拍が拍動した時の処理を書く
             beat_detect[i+1] = 1;
             if(i == 0) {
-                //bs1.playSound(ofRandom(0,5));
+                bs1.playSound(ofRandom(0,5));
             }
             if(i == 1) {
                 bs2.playSound(ofRandom(0,5));
@@ -86,7 +86,7 @@ void ofApp::update(){
     for(int i = 0 ; i < 7 ; i++){
         if(beat_detect[i] == 1 ){
             beat.play();
-            beat.setVolume(0.5f);
+          //  beat.setVolume(0.5f);
         }
     }
 }
@@ -169,4 +169,16 @@ void ofApp::exit(){
     bs2.stop();
     bs3.stop();
     bs4.stop();
+}
+
+void ofApp::keyPressed(int key){
+    if(key == 'z'){
+        if(bgSize > 0)
+            bgSize = bgSize - 1;
+    }
+    
+    if(key == 'x'){
+        if(bgSize < 4)
+            bgSize = bgSize + 1;
+    }
 }
